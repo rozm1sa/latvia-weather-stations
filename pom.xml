@@ -15,6 +15,7 @@
     <groupId>com.weatherstations</groupId>
     <artifactId>latvia-weather-stations</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
     <name>Latvia Weather Stations API</name>
     <description>REST API for Latvia weather stations data</description>
 

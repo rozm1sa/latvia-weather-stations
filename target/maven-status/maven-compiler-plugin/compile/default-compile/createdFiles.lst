@@ -1,0 +1,9 @@
+com\weatherstations\WeatherStationService.class
+com\weatherstations\WeatherStationController.class
+com\weatherstations\config\OpenAPIConfig.class
+com\weatherstations\security\SecurityConfig.class
+com\weatherstations\security\BearerTokenFilter.class
+com\weatherstations\WeatherStationSummary.class
+com\weatherstations\WeatherStation.class
+com\weatherstations\WeatherStationApplication.class
+com\weatherstations\DataSourceClient.class
