@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.util.Collections;
+import java.io.IOException;
 
 public class BearerTokenFilter extends OncePerRequestFilter {
 

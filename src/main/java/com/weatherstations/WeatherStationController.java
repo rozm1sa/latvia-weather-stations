@@ -7,13 +7,19 @@ import java.util.List;
 @RequestMapping("/api/stations")
 public class WeatherStationController {
 
+    private final WeatherStationService service;
+
+    public WeatherStationController(WeatherStationService service) {
+        this.service = service;
+    }
+
     @GetMapping
     public List<WeatherStationSummary> getAllStations(){
-        return List.of();
+        return service.getAllStationsSummary();
     }
 
     @GetMapping("/{stationId}")
     public WeatherStation getStationById(@PathVariable String stationId) {
-        return null;
+        return service.getStationById(stationId);
     }
 }

@@ -12,13 +12,11 @@ public class WeatherStationSummary{
         this.name = name;
     }
 
-
-
     public String getStationId(){
-        return stationId
+        return stationId;
     }
 
-    public void setStationId(){
+    public void setStationId(String stationId){
         this.stationId = stationId;
     }
 
@@ -26,7 +24,7 @@ public class WeatherStationSummary{
         return name;
     }
 
-    public void setName(){
+    public void setName(String name){
         this.name = name;
     }
 

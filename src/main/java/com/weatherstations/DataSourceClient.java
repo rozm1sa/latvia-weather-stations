@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTempLate;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayLlist;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -15,21 +15,29 @@ public class DataSourceClient{
     @Value("${weather.data.source.url}")
     private String dataSourceUrl;
 
-    private final RestTempLate restTemplate;
+    private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
     public DataSourceClient(){
-        this.restTemplate = new RestTempLate();
-        this.objectMapper - new objectMapper();
+        this.restTemplate = new RestTemplate();
+        this.objectMapper = new ObjectMapper();
+        System.out.println("=== DataSourceClient CREATED ===");
     }
 
     
     public List<WeatherStation> fetchWeatherStations(){
+        System.out.println("=== fetchWeatherStations CALLED ===");
+        System.out.println("=== URL: " + dataSourceUrl + " ===");
         try{
             String jsonResponse = restTemplate.getForObject(dataSourceUrl, String.class);
-            return parseWeatherStations(jsonResponse);
+            System.out.println("=== GOT RESPONSE, length: " + (jsonResponse != null ? jsonResponse.length() : 0) + " ===");
+            List<WeatherStation> result = parseWeatherStations(jsonResponse);
+            System.out.println("=== PARSED " + result.size() + " stations ===");
+            return result;
         } catch (Exception e){
-            throw new RuntimeException("FAILED to fetch weather station data", e);
+            System.out.println("=== ERROR FETCHING DATA: " + e.getMessage() + " ===");
+            e.printStackTrace();
+            return new ArrayList<>(); 
         }
     }
 
@@ -38,6 +46,8 @@ public class DataSourceClient{
         try{
             JsonNode root = objectMapper.readTree(jsonResponse);
             JsonNode records = root.path("result").path("records");
+            
+            System.out.println("=== Found " + records.size() + " records in JSON ===");
 
             for(JsonNode record : records){
                 WeatherStation station = new WeatherStation();
@@ -56,10 +66,12 @@ public class DataSourceClient{
                 station.setElevationPressure(record.path("ELEVATION_PRESSURE").asText());
                 stations.add(station);
             }
+            
+            System.out.println("=== Successfully added " + stations.size() + " stations to list ===");
         } catch (Exception e){
-            throw new RuntimeException("FAILED to parse weather station data", e);
+            System.out.println("=== ERROR PARSING DATA: " + e.getMessage() + " ===");
+            e.printStackTrace();
         }
         return stations;
     }
-
 }
