@@ -12,7 +12,7 @@ REST API providing information about weather stations in Latvia. Data is sourced
 
 **Endpoint:** `GET /api/stations`
 
-**Description:** Returns a list of all weather stations with ID and name.
+**Returns a list of all weather stations with ID and name.**
 
 **Example:**
 ```bash
@@ -26,7 +26,7 @@ curl -H "Authorization: Bearer {token}" \
 
 **Endpoint:** `GET /api/stations/{stationId}`
 
-**Description:** Returns detailed information for a specific weather station.
+**Returns detailed information for a specific weather station.**
 
 **Example:**
 ```bash
