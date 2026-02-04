@@ -22,11 +22,15 @@ public class SecurityConfig {
         
         http
             .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(bearerTokenFilter, UsernamePasswordAuthenticationFilter.class);
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/**").authenticated()
+                    .anyRequest().permitAll()
+                )
+            .addFilterBefore(bearerTokenFilter, UsernamePasswordAuthenticationFilter.class)
+            .httpBasic(basic -> basic.disable())
+            .formLogin(form -> form.disable());
         
         return http.build();
     }
