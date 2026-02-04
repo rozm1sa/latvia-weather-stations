@@ -27,3 +27,6 @@ jobs:
 
       - name: build java project
         run: mvn package
+
+      - name: build Docker image
+        run: docker build -t latvia-weather-stations:latest .
